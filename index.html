@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TUGAS MEMBUAT WEBSITE</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Montserrat:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="Tampilan_HP.css">
+  <link rel="stylesheet" href="Tampilan_Laptop.css">
+
+  <style>
+    /* ganti hero background via <picture> */
+    .hero-media {
+      position: relative;
+    }
+
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, .7));
+      z-index: -1;
+    }
+  </style>
+
+
+  <style>
+    /* Responsif umum (tersisa; file terpisah untuk HP/Laptop) */
+  @media (max-width: 480px) {
+
+      /* Popup iklan tetap rapi di HP */
+      .overlay {
+        align-items: center;
+        padding: 12px;
+      }
+
+      .popup-modern {
+        width: min(92vw, 420px);
+        max-height: 90vh;
+        overflow: auto;
+      }
+
+      .video-iklan {
+        height: auto;
+        max-height: 52vh;
+        object-fit: contain;
+      }
+
+      .judul-popup {
+        font-size: 18px;
+      }
+
+      #musicBtn {
+        right: 14px;
+        bottom: 14px;
+        width: 50px;
+        height: 50px;
+      }
+
+    }
+
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .tablet-gap {
+        gap: 2.25rem;
+      }
+
+      /* popup iklan: biar video juga tidak kepotong di laptop/tablet */
+      .popup-modern {
+        max-height: 90vh;
+      }
+
+      .video-iklan {
+        height: auto;
+        max-height: 70vh;
+        object-fit: contain;
+      }
+    }
+
+
+    /* hero original bg dinonaktifkan karena pakai <picture> */
+    .hero-bg {
+      background: none;
+    }
+
+    /* POPUP MODERN */
+
+
+    .popup-modern {
+      width: 420px;
+      background: #111;
+      border: 2px solid #ff9d00;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      padding-bottom: 18px;
+      animation: muncul .5s ease;
+      box-shadow: 0 0 30px rgba(255, 157, 0, .25);
+    }
+
+  .video-iklan {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .judul-popup {
+      color: #ff9d00;
+      font-size: 20px;
+      font-weight: 800;
+      margin-top: 14px;
+    }
+
+    .btn-order {
+      display: inline-block;
+      margin-top: 15px;
+      background: linear-gradient(135deg, #ff9d00, #ff6200);
+      color: black;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    /* IKLAN POPUP */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup {
+      width: 300px;
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #ff9d00;
+      border: none;
+      color: black;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 22px;
+      cursor: pointer;
+      font-weight: bold;
+      color: red;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #050505;
+      color: white;
+    }
+
+    .oswald {
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .hero-bg {
+      background:
+        linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, .7)),
+        url('TAMPILAN.jpg');
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .glow {
+      box-shadow: 0 0 30px rgba(255, 140, 0, .2);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-10px);
+      transition: .4s;
+    }
+
+    .orange {
+      color: #ff9d00;
+    }
+
+    .bg-orange {
+      background: #ff9d00;
+    }
+
+    .border-orange {
+      border-color: #ff9d00;
+    }
+  </style>
+</head>
+<script>
+
+  const isMobile = window.matchMedia && window.matchMedia('(max-width: 480px)').matches;
+  const STAR_COUNT = isMobile ? 16 : 40;
+  // simpan referensi biar aman kalau mau cleanup
+  for (let i = 0; i < STAR_COUNT; i++) {
+
+    let bintang = document.createElement("div");
+
+    bintang.innerHTML = "✨";
+
+    bintang.style.position = "fixed";
+    bintang.style.left = Math.random() * 100 + "%";
+    bintang.style.top = Math.random() * 100 + "%";
+    bintang.style.fontSize = Math.random() * 20 + "px";
+
+    bintang.style.opacity = 0.3;
+
+    document.body.appendChild(bintang);
+
+  }
+
+</script>
+
+
+
+<body>
+  <!-- POPUP IKLAN MODERN -->
+    <div class="overlay" id="popup" style="display:flex;">
+
+    <div class="popup-modern" role="dialog" aria-modal="true" aria-labelledby="judulPopup">
+
+      <!-- IKLAN MODERN: langsung tampil video (tanpa iklan foto) -->
+      <div id="iklanVideoWrap" class="w-full" style="display:block; width:100%;">
+
+        <div class="close-btn" onclick="tutupPopup()" aria-label="Tutup">✕</div>
+        <video
+          id="iklanVideo"
+          loop
+          playsinline
+          autoplay
+          muted
+          controls
+          class="video-iklan"
+        >
+<source src="IKLAN.mp4" type="video/quicktime">
+
+
+          Browser tidak mendukung video.
+        </video>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- NAVBAR -->
+
+  <nav class="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-md border-b border-orange-500/20">
+
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+
+      <div class="oswald leading-none">
+        <div class="text-4xl italic font-bold text-white">Es Teh</div>
+        <div class="text-4xl italic font-bold orange -mt-2">UNPAM!</div>
+      </div>
+
+      <div class="hidden md:flex gap-8 text-sm font-bold uppercase">
+
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });"
+          class="hover:text-orange-400">Beranda</a>
+        <a href="#menu" class="hover:text-orange-400">Menu</a>
+        <a href="#tentang" class="hover:text-orange-400">Tentang Kami</a>
+        <a href="#testimoni" class="hover:text-orange-400">Testimoni</a>
+
+        <button class="relative hover:text-orange-400" aria-label="Keranjang">
+
+          <i class="fa-solid fa-cart-shopping text-2xl"></i>
+
+          <span id="cart-count"
+            class="absolute -top-2 -right-3 bg-orange text-black text-xs w-5 h-5 rounded-full flex items-center justify-center">
+            0
+          </span>
+
+        </button>
+
+
+      </div>
+
+        <a href="#" onclick="tampilkanKeranjang(); checkoutKeWhatsApp(); return false;"
+        class="bg-orange text-black px-6 py-3 rounded-full font-bold hover:scale-105 duration-300">
+        Pesan Sekarang
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero-bg min-h-screen flex items-center pt-24 sm:pt-28 md:pt-32 hero-media">
+
+    <picture>
+      <source media="(max-width: 480px)" srcset="TAMPILAN HP.png" />
+      <source media="(min-width: 481px)" srcset="TAMPILAN.jpg" />
+      <img class="hero-bg-img" src="TAMPILAN.jpg" alt="Background Hero" />
+    </picture>
+    <div class="hero-bg-overlay" aria-hidden="true"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
+
+
+
+      <div>
+
+        <div class="bg-orange text-black inline-block px-4 py-2 font-bold uppercase text-sm rounded-full mb-5">
+          Segarnya Bikin Nagih
+        </div>
+
+        <h1 class="oswald text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-none hp-title">
+          ES TEH
+          <span class="orange block">UNPAM!</span>
+        </h1>
+
+        <p class="mt-6 text-gray-300 leading-relaxed max-w-lg">
+          Es teh segar dengan rasa premium, semanis kamu,
+          dan bikin nagih setiap hari!
+          BUKAN KALENG - KALENG
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mt-8">
+
+          <a href="https://wa.me/6287710344106"
+            class="bg-orange text-black px-8 py-4 rounded-full font-bold hover:scale-105 duration-300">
+            Pesan Sekarang
+          </a>
+
+          <a href="#menu"
+            class="border border-orange-500 px-8 py-4 rounded-full font-bold hover:bg-orange-500 hover:text-black duration-300">
+            Lihat Menu
+          </a>
+
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+
+
+          <div class="text-center">
+            <i class="fa-solid fa-leaf text-4xl orange mb-3"></i>
+            <h3 class="font-bold">Teh Asli</h3>
+            <p class="text-sm text-gray-400">Berkualitas</p>
+          </div>
+
+          <div class="text-center">
+            <i class="fa-solid fa-cubes text-4xl orange mb-3"></i>
+            <h3 class="font-bold">Dingin</h3>
+            <p class="text-sm text-gray-400">Menyegarkan</p>
+          </div>
+
+          <div class="text-center">
+            <i class="fa-solid fa-glass-water text-4xl orange mb-3"></i>
+            <h3 class="font-bold">Manis Pas</h3>
+            <p class="text-sm text-gray-400">Nagih Terus</p>
+          </div>
+
+          <div class="text-center">
+            <i class="fa-solid fa-tags text-4xl orange mb-3"></i>
+            <h3 class="font-bold">Mulai</h3>
+            <p class="text-sm text-gray-400">3RB Aja</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CART MODAL -->
+  <div id="cartOverlay" class="hidden fixed inset-0 z-[10000]">
+    <div id="cartBackdrop" class="absolute inset-0 bg-black/70"></div>
+
+    <div class="absolute right-0 top-0 h-full w-[86vw] sm:w-[360px] bg-[#0b0b0b] border-l border-orange-500/20">
+
+      <div class="p-4 sm:p-6 border-b border-orange-500/20 flex items-center justify-between">
+        <div>
+          <div class="oswald text-2xl sm:text-3xl font-bold">Keranjang</div>
+          <div id="cartSubtitle" class="text-gray-400 text-xs sm:text-sm mt-1">Silakan pilih pesananmu</div>
+        </div>
+        <button id="cartCloseBtn"
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-600 text-white font-bold">✕</button>
+      </div>
+
+      <div class="p-4 sm:p-6 overflow-y-auto h-[calc(100%-170px)]">
+        <div id="cartItems" class="space-y-3 sm:space-y-4">
+          <!-- item akan dirender di sini -->
+        </div>
+
+        <div id="cartEmpty" class="text-gray-400 text-center py-8 sm:py-10 hidden">
+          Keranjang masih kosong.
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-6 border-t border-orange-500/20">
+        <div class="flex items-center justify-between text-gray-300">
+          <span class="font-bold">Total</span>
+          <span id="cartTotal" class="text-xl sm:text-2xl font-extrabold orange">Rp 0</span>
+        </div>
+
+        <button id="cartCheckoutBtn"
+          class="mt-3 w-full bg-orange text-black px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg hover:scale-[1.02] transition">
+          Checkout via WhatsApp
+        </button>
+
+        <button id="cartClearBtn"
+          class="mt-2 w-full bg-[#111] border border-orange-500/20 text-orange-400 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-bold hover:bg-orange-500/10">
+          Kosongkan Keranjang
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+
+  <section id="menu" class="py-24 sm:py-24 bg-black">
+
+    <!-- (Di bawah menu, akan muncul slide Pembayaran & Pengambilan) -->
+
+
+
+    <div class="max-w-7xl mx-auto px-6">
+
+
+      <div class="text-center mb-16">
+
+        <h2 class="oswald text-5xl sm:text-6xl font-bold uppercase">
+          MENU <span class="orange">FAVORIT</span>
+        </h2>
+
+        <p class="text-gray-400 mt-4">
+          Pilihan terbaik yang paling banyak disukai pelanggan
+        </p>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- CARD -->
+
+        <div class="menu-card bg-[#111] rounded-3xl overflow-hidden border border-orange-500/20 glow hp-menu-card">
+
+          <picture>
+            <source media="(max-width: 480px)" srcset="ES TEH ORIGINAL.png" />
+            <img src="ES TEH ORIGINAL.png" alt="Es Teh Original"
+              class="h-40 sm:h-48 md:h-56 lg:h-64 hp-menu-img w-full object-cover" />
+          </picture>
+
+          <div class="p-5">
+
+            <h3 class="text-2xl font-bold mb-2">Es Teh Original</h3>
+
+            <p class="text-gray-400 text-sm mb-4">
+              Rasa teh asli yang menyegarkan
+            </p>
+
+            <div class="text-3xl font-extrabold orange mb-5">
+              Rp 3.000
+            </div>
+
+            <div class="flex gap-3">
+
+              <button
+                class="w-14 bg-black border border-orange-500 text-orange-400 rounded-full hover:bg-orange-500 hover:text-black duration-300"
+                onclick="tambahKeKeranjang('Es Teh Original', 3000)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+
+<a href="#" onclick="tambahKeKeranjang('Es Teh Original', 3000); checkoutKeWhatsApp(); return false;"
+                class="flex-1 bg-orange text-black py-3 rounded-full font-bold text-center hover:scale-105 duration-300">
+                PESAN
+              </a>
+
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CARD -->
+
+        <div
+          class="menu-card bg-[#111] rounded-3xl overflow-hidden border border-orange-500 glow relative hp-menu-card">
+
+          <div class="absolute top-4 left-4 bg-red-500 px-3 py-1 rounded-full text-xs font-bold z-10">
+            BEST SELLER
+          </div>
+
+          <picture>
+            <source media="(max-width: 480px)" srcset="ES TEH LEMON.png" />
+            <img src="ES TEH LEMON.png" alt="Es Teh Lemon"
+              class="h-40 sm:h-48 md:h-56 lg:h-64 hp-menu-img w-full object-cover" />
+          </picture>
+
+          <div class="p-5">
+
+            <h3 class="text-2xl font-bold mb-2">Es Teh Lemon</h3>
+
+            <p class="text-gray-400 text-sm mb-4">
+              Perpaduan teh & lemon segar
+            </p>
+
+            <div class="text-3xl font-extrabold orange mb-5">
+              Rp 4.000
+            </div>
+
+            <div class="flex gap-3">
+
+              <button
+                class="w-14 bg-black border border-orange-500 text-orange-400 rounded-full hover:bg-orange-500 hover:text-black duration-300"
+                onclick="tambahKeKeranjang('Es Teh Lemon', 4000)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+
+<a href="#" onclick="tambahKeKeranjang('Es Teh Lemon', 4000); checkoutKeWhatsApp(); return false;"
+                class="flex-1 bg-orange text-black py-3 rounded-full font-bold text-center hover:scale-105 duration-300">
+                PESAN
+              </a>
+
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CARD -->
+
+        <div class="menu-card bg-[#111] rounded-3xl overflow-hidden border border-orange-500/20 glow hp-menu-card">
+
+          <picture>
+            <source media="(max-width: 480px)" srcset="ES TEH LYCHEE.png" />
+            <img src="ES TEH LYCHEE.png" alt="Es Teh Lychee"
+              class="h-40 sm:h-48 md:h-56 lg:h-64 hp-menu-img w-full object-cover" />
+          </picture>
+
+          <div class="p-5">
+
+            <h3 class="text-2xl font-bold mb-2">Es Teh Lychee</h3>
+
+            <p class="text-gray-400 text-sm mb-4">
+              Aroma lychee yang wangi
+            </p>
+
+            <div class="text-3xl font-extrabold orange mb-5">
+              Rp 5.000
+            </div>
+
+            <div class="flex gap-3">
+
+              <button class="w-14 bg-black border border-orange-500 text-orange-400 rounded-full"
+                onclick="tambahKeKeranjang('Es Teh Lychee', 5000)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+
+<a href="#" onclick="tambahKeKeranjang('Es Teh Lychee', 5000); checkoutKeWhatsApp(); return false;"
+                class="flex-1 bg-orange text-black py-3 rounded-full font-bold text-center">
+                PESAN
+              </a>
+
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CARD -->
+
+        <div class="menu-card bg-[#111] rounded-3xl overflow-hidden border border-orange-500/20 glow hp-menu-card">
+
+          <picture>
+            <source media="(max-width: 480px)" srcset="ES TEH MADU.png" />
+            <img src="ES TEH MADU.png" alt="Es Teh Madu"
+              class="h-40 sm:h-48 md:h-56 lg:h-64 hp-menu-img w-full object-cover" />
+          </picture>
+
+          <div class="p-5">
+
+            <h3 class="text-2xl font-bold mb-2">Es Teh Madu</h3>
+
+            <p class="text-gray-400 text-sm mb-4">
+              Manis alami dari madu
+            </p>
+
+            <div class="text-3xl font-extrabold orange mb-5">
+              Rp 5.000
+            </div>
+
+            <div class="flex gap-3">
+
+              <button class="w-14 bg-black border border-orange-500 text-orange-400 rounded-full"
+                onclick="tambahKeKeranjang('Es Teh Madu', 5000)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+
+<a href="#" onclick="tambahKeKeranjang('Es Teh Madu', 5000); checkoutKeWhatsApp(); return false;"
+                class="flex-1 bg-orange text-black py-3 rounded-full font-bold text-center">
+                PESAN
+              </a>
+
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SLIDE MENU -> PEMBAYARAN & PENGAMBILAN -->
+
+  <!-- toggle pakai anchor: klik di menu akan scroll ke section ini -->
+  <div id="slide-menu">
+    <!-- Slide: Pembayaran & Pengambilan -->
+    <!-- (konten ada di section id="pembayaran" tepat setelah bagian Menu) -->
+  </div>
+
+  <!-- TENTANG KAMI -->
+
+  <section id="tentang" class="py-20 sm:py-24 bg-[#0b0b0b]">
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
+
+      <div>
+
+        <h2 class="oswald text-5xl sm:text-6xl uppercase font-bold">
+          Tentang <span class="orange">Kami</span>
+        </h2>
+
+        <p class="text-gray-300 leading-relaxed mt-6 text-sm sm:text-base">
+          Es Teh Segarnya Nampol!
+
+          Kami percaya bahwa segelas es teh bukan hanya pelepas dahaga,
+          tetapi juga teman terbaik di setiap momen. Dengan racikan teh pilihan berkualitas dan kesegaran yang selalu
+          terjaga,
+          kami menghadirkan cita rasa autentik yang mampu memberikan sensasi segar di setiap tegukan.
+          Dibuat dari bahan pilihan dan disajikan dengan standar terbaik, Es Teh kami hadir untuk menemani aktivitas
+          harian, berkumpul bersama teman, hingga menikmati waktu santai bersama keluarga.
+        </p>
+
+        <div class="grid grid-cols-3 gap-6 mt-10">
+
+          <div>
+            <div class="text-5xl font-bold orange">50K+</div>
+            <div class="text-gray-400">Pelanggan</div>
+          </div>
+
+          <div>
+            <div class="text-5xl font-bold orange">100+</div>
+            <div class="text-gray-400">Outlet</div>
+          </div>
+
+          <div>
+            <div class="text-5xl font-bold orange">4.8★</div>
+            <div class="text-gray-400">Rating</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <picture>
+          <source media="(max-width: 480px)" srcset="TAMPILAN HP.png" />
+          <img src="TAMPILAN UTAMA.jpg" alt="Gambar Tentang Kami"
+            class="rounded-3xl shadow-2xl border border-orange-500/30" />
+        </picture>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TESTIMONI -->
+
+  <section id="testimoni" class="py-20 sm:py-24 bg-black">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+        <h2 class="oswald text-5xl sm:text-6xl uppercase font-bold">
+          APA KATA <span class="orange">MEREKA?</span>
+        </h2>
+
+        <p class="text-gray-400 mt-4">
+          Testimoni pelanggan setia kami
+        </p>
+
+        <div
+          class="mt-4 inline-flex items-center gap-3 bg-orange/10 border border-orange-500/30 px-4 py-2 rounded-full text-orange font-bold text-sm">
+          <span>Auto slide</span>
+          <span id="testiTimerLabel" class="tabular-nums">(5s)</span>
+        </div>
+
+      </div>
+
+      <div class="relative" aria-label="Testimoni">
+        <div id="testimoniCarousel" class="grid md:grid-cols-3 gap-8 transition-all duration-500">
+
+
+          <div class="bg-[#111] p-8 rounded-3xl border border-orange-500/20">
+
+            <div class="text-yellow-400 text-xl mb-4">
+              ★★★★★
+            </div>
+
+            <p class="text-gray-300 italic leading-relaxed">
+              "Es teh ter enak yang pernah saya minum!
+              cocok di minum,di panasnya kota serang"
+            </p>
+
+            <div class="mt-6 font-bold orange">
+              — Gilang Andrianna
+            </div>
+
+          </div>
+
+          <div class="bg-[#111] p-8 rounded-3xl border border-orange-500/20">
+
+            <div class="text-yellow-400 text-xl mb-4">
+              ★★★★★
+            </div>
+
+            <p class="text-gray-300 italic leading-relaxed">
+              "Harga murah rasa premium!
+              Bukan kaleng-kaleng."
+            </p>
+
+            <div class="mt-6 font-bold orange">
+              — M.Dzikri zaini
+            </div>
+
+          </div>
+
+          <div class="bg-[#111] p-8 rounded-3xl border border-orange-500/20">
+
+            <div class="text-yellow-400 text-xl mb-4">
+              ★★★★★
+            </div>
+
+            <p class="text-gray-300 italic leading-relaxed">
+              "Langganan terus! Monggo di pesen der..."
+            </p>
+
+            <div class="mt-6 font-bold orange">
+              — Irvan Nurwahyu
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+  </section>
+
+  <!-- SLIDE PEMBAYARAN (di bawah MENU) -->
+
+  <section id="pembayaran" class="py-20 sm:py-24 bg-black relative overflow-hidden">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+        <div
+          class="inline-flex items-center gap-2 bg-orange/10 border border-orange-500/30 px-5 py-2 rounded-full text-orange font-bold uppercase text-sm">
+          <i class="fa-solid fa-receipt"></i>
+          Pesan Mudah • Pembayaran Fleksibel
+        </div>
+
+        <h2 class="oswald text-5xl sm:text-6xl font-bold uppercase mt-4">
+          PEMBAYARAN & <span class="orange">PENGAMBILAN</span>
+        </h2>
+
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+          Pilih cara bayar & lokasi kamu. Ongkir menyesuaikan jarak biar kamu makin hemat!
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+
+        <div class="bg-[#0b0b0b] border border-orange-500/20 rounded-3xl p-6 sm:p-8">
+          <h3 class="oswald text-3xl font-bold uppercase">Cara Pembayaran</h3>
+          <p class="text-gray-400 mt-3 text-sm">Transfer, Bayar di tempat, atau Dana.</p>
+
+          <div class="mt-6 space-y-4">
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeBayar" value="bayar_di_tempat" class="mt-1 accent-orange-500" checked />
+              <div>
+                <div class="font-bold">Bayar di Tempat</div>
+                <div class="text-gray-400 text-sm mt-1">Kamu tinggal order, nanti bayar saat pesanan siap.</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeBayar" value="tf_atm" class="mt-1 accent-orange-500" />
+              <div>
+                <div class="font-bold">TF / ATM</div>
+                <div class="text-gray-400 text-sm mt-2">
+                  <div class="font-semibold orange">NO REK: 018801247054501</div>
+                  <div class="mt-1">Atas Nama: <span class="font-semibold">GILANG ANDRIANNA PUTRA</span></div>
+                  <div class="mt-1">Bank: <span class="font-semibold">BRI</span></div>
+                </div>
+                <div class="text-gray-400 text-xs mt-2">
+                  Setelah transfer, <span class="orange font-semibold">kirim bukti pembayaran</span> via WhatsApp.
+                </div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeBayar" value="DANA" class="mt-1 accent-orange-500" />
+              <div>
+                <div class="font-bold">DANA</div>
+                <div class="text-gray-400 text-sm mt-2">Pembayaran via aplikasi DANA.</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="bg-[#0b0b0b] border border-orange-500/20 rounded-3xl p-6 sm:p-8">
+          <h3 class="oswald text-3xl font-bold uppercase">Ambil / Antar</h3>
+          <p class="text-gray-400 mt-3 text-sm">Ongkir otomatis: dekat Rp 5.000, jauh Rp 10.000.</p>
+
+          <div class="mt-6 space-y-4">
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeAntar" value="ambil" class="mt-1 accent-orange-500" checked />
+              <div>
+                <div class="font-bold">Ambil di Tempat</div>
+                <div class="text-gray-400 text-sm mt-1">Lokasi: <span class="orange font-semibold">UNPAM, Serang</span>
+                </div>
+                <div class="text-gray-400 text-sm mt-1">Ongkir: <span class="orange font-semibold">Rp 0</span></div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeAntar" value="antar_dekat" class="mt-1 accent-orange-500" />
+              <div>
+                <div class="font-bold">Antar (Dekat)</div>
+                <div class="text-gray-400 text-sm mt-1">Ongkir: <span class="orange font-semibold">Rp 5.000</span></div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-4 rounded-2xl border border-orange-500/20 bg-[#111] cursor-pointer">
+              <input type="radio" name="metodeAntar" value="antar_jauh" class="mt-1 accent-orange-500" />
+              <div>
+                <div class="font-bold">Antar (Jauh)</div>
+                <div class="text-gray-400 text-sm mt-1">Ongkir: <span class="orange font-semibold">Rp 10.000</span>
+                </div>
+              </div>
+            </label>
+
+          </div>
+
+          <div class="mt-6 p-4 rounded-2xl border border-orange-500/20 bg-[#111]">
+            <div class="font-bold">Catatan</div>
+            <div class="text-gray-400 text-sm mt-1">Saat checkout via WhatsApp, pilihan ini akan ikut dikirim.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20 bg-gradient-to-r from-[#1a0d00] to-black">
+
+
+    <div class="max-w-5xl mx-auto px-6">
+
+      <div
+        class="bg-[#111] rounded-3xl p-10 border border-orange-500/30 flex flex-col lg:flex-row items-center justify-between gap-10">
+
+        <div>
+
+          <h2 class="oswald text-4xl sm:text-5xl uppercase font-bold leading-tight"> <br>
+            DAN RASAKAN <span class="orange">SEGARNYA!</span>
+          </h2>
+
+          <p class="text-gray-400 mt-4">
+            Fast respon dan siap kirim setiap hari
+          </p>
+
+        </div>
+
+        <a href="#" onclick="tampilkanKeranjang(); checkoutKeWhatsApp(); return false;"
+          class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold flex items-center gap-4 duration-300">
+
+          <i class="fa-brands fa-whatsapp text-3xl"></i>
+          Pesan via WhatsApp
+
+        </a>
+      </div>
+
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer id="kontak" class="bg-black border-t border-orange-500/20 py-10 sm:py-12">
+
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+
+      <div>
+
+        <div class="oswald leading-none">
+          <div class="text-4xl italic font-bold text-white">Es Teh</div>
+          <div class="text-4xl italic font-bold orange -mt-2">UNPAM!</div>
+        </div>
+
+        <p class="text-gray-400 mt-4">
+          Segarnya bikin nagih setiap hari!
+        </p>
+
+      </div>
+
+      <div>
+
+        <h3 class="font-bold text-xl mb-5">MENU</h3>
+
+        <div class="space-y-3 text-gray-400">
+          <div>Es Teh Original</div>
+          <div>Es Teh Lemon</div>
+          <div>Es Teh Lychee</div>
+          <div>Es Teh Madu</div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <h3 class="font-bold text-xl mb-5">KONTAK</h3>
+
+        <div class="space-y-3 text-gray-400">
+
+          <div>
+            <i class="fa-solid fa-phone orange mr-2"></i>
+            0877-1034-4106
+          </div>
+
+          <div>
+            <i class="fa-solid fa-envelope orange mr-2"></i>
+            estehunpam@gmail.com
+          </div>
+
+          <div>
+            <i class="fa-solid fa-location-dot orange mr-2"></i>
+            UNIVERSITAS PAMULANG KOTA SERANG
+          </div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <h3 class="font-bold text-xl mb-5">BERI MASUKAN </h3>
+
+        <div class="flex">
+
+          <input type="text" placeholder="Tulis pesan"
+            class="w-full px-4 py-3 rounded-l-full bg-[#111] border border-orange-500/20 outline-none hp-footer-input">
+
+          <button class="bg-orange text-black px-6 rounded-r-full font-bold hp-footer-btn">
+            KIRIM
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="text-center text-gray-500 text-sm mt-12">
+      © 2026 Es Teh UNPAM! All Rights Reserved.
+    </div>
+
+  </footer>
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="lagu.mp3" type="audio/mpeg">
+  </audio>
+    <script>
+
+    // Supaya tidak error saat file musik/favikon hilang
+    (function () {
+      const a = document.getElementById('bgMusic');
+      if (!a) return;
+      a.addEventListener('error', () => { try { a.pause(); } catch (e) {} });
+    })();
+
+    // Debug kecil untuk cek apakah popup/video benar-benar load
+    // (tidak mengganggu tampilan)
+    window.__DEBUG_VIDEO = () => {
+      const v = document.getElementById('iklanVideo');
+      if (!v) return;
+      console.log('[DEBUG] video readyState:', v.readyState, 'src:', v.currentSrc);
+      v.addEventListener('error', (e) => console.log('[DEBUG] video error', e), { once: true });
+    };
+  </script>
+
+
+
+  <!-- TOMBOL MUSIC -->
+<button id="musicBtn" aria-label="Toggle music"
+    style="display:flex;align-items:center;justify-content:center;">
+    <i class="fa-solid fa-volume-high"></i>
+</button>
+
+  <style>
+    #musicBtn {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      right: 20px;
+      bottom: 20px;
+      width: 55px;
+      height: 55px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 9999;
+    }
+  </style>
+
+  <script>
+    // =====================
+    // CART (Keranjang Pesanan)
+    // =====================
+
+    // helper untuk audio popup (ditaruh di header cart script supaya siap sebelum tombol audio dipakai)
+    // (tidak memaksa auto-play; hanya untuk mengurangi risiko audio hilang setelah popup)
+    const __tryPlayBgMusic = () => {
+      const a = document.getElementById('bgMusic');
+      if (!a) return;
+      a.play().catch(() => { });
+    };
+
+
+    // Pastikan tombol cart/navbar keranjang juga bisa dibuka walau list produk belum diklik
+    // (hanya untuk menghindari error karena :has() tidak didukung di beberapa browser)
+
+
+    const WA_NUMBER = "6287710344106";
+
+    // cart: { "Nama Produk": qty }
+    const cart = {};
+
+    function formatRupiah(angka) {
+      try {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(angka);
+      } catch (e) {
+        return 'Rp ' + String(angka).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+    }
+
+    function tampilkanKeranjang() {
+      const overlay = document.getElementById('cartOverlay');
+      const itemsEl = document.getElementById('cartItems');
+      const emptyEl = document.getElementById('cartEmpty');
+      const totalEl = document.getElementById('cartTotal');
+      const countEl = document.getElementById('cart-count');
+
+      if (!overlay || !itemsEl || !emptyEl || !totalEl || !countEl) return;
+
+      const entries = Object.entries(cart).filter(([, qty]) => qty > 0);
+
+      // hitung total qty
+      const totalQty = entries.reduce((sum, [, qty]) => sum + qty, 0);
+      countEl.textContent = String(totalQty);
+
+      if (entries.length === 0) {
+        emptyEl.classList.remove('hidden');
+        itemsEl.innerHTML = '';
+        totalEl.textContent = formatRupiah(0);
+      } else {
+        emptyEl.classList.add('hidden');
+        itemsEl.innerHTML = '';
+
+        let totalHarga = 0;
+
+        entries.forEach(([nama, qty]) => {
+          const harga = (window.__priceMap && window.__priceMap[nama]) ? window.__priceMap[nama] : 0;
+          const subtotal = harga * qty;
+          totalHarga += subtotal;
+
+          const row = document.createElement('div');
+          row.className = 'flex items-start justify-between gap-3 bg-[#111] border border-orange-500/20 rounded-2xl p-4';
+
+          row.innerHTML = `
+            <div>
+              <div class="font-bold">${nama}</div>
+              <div class="text-gray-400 text-sm mt-1">${formatRupiah(harga)} / pcs</div>
+              <div class="orange font-bold mt-2">Subtotal: ${formatRupiah(subtotal)}</div>
+            </div>
+
+            <div class="flex flex-col items-end gap-2">
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  class="w-9 h-9 rounded-full bg-black border border-orange-500/20 text-orange-400 font-bold"
+                  aria-label="Kurangi"
+                  onclick="ubahQty('${nama}', -1)"
+                >-
+                </button>
+                <div class="min-w-8 text-center font-bold">${qty}</div>
+                <button
+                  type="button"
+                  class="w-9 h-9 rounded-full bg-black border border-orange-500/20 text-orange-400 font-bold"
+                  aria-label="Tambah"
+                  onclick="ubahQty('${nama}', 1)"
+                >+
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="text-red-500 font-bold text-sm"
+                onclick="hapusItem('${nama}')"
+              >Hapus</button>
+            </div>
+          `;
+
+          itemsEl.appendChild(row);
+        });
+
+        totalEl.textContent = formatRupiah(totalHarga);
+      }
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('block');
+    }
+
+    function hideKeranjang() {
+      const overlay = document.getElementById('cartOverlay');
+      if (!overlay) return;
+      overlay.classList.add('hidden');
+      overlay.classList.remove('block');
+    }
+
+    function tambahKeKeranjang(nama, harga) {
+      if (!window.__priceMap) window.__priceMap = {};
+      window.__priceMap[nama] = harga;
+
+      if (!cart[nama]) cart[nama] = 0;
+      cart[nama] += 1;
+
+      tampilkanKeranjang();
+    }
+
+    function ubahQty(nama, delta) {
+      if (!cart[nama]) cart[nama] = 0;
+      cart[nama] = cart[nama] + delta;
+      if (cart[nama] <= 0) delete cart[nama];
+      tampilkanKeranjang();
+    }
+
+    function hapusItem(nama) {
+      delete cart[nama];
+      tampilkanKeranjang();
+    }
+
+    function buatTextWhatsApp() {
+      const entries = Object.entries(cart).filter(([, qty]) => qty > 0);
+
+      if (entries.length === 0) {
+        return 'Halo, saya ingin memesan minuman. (Keranjang masih kosong)';
+      }
+
+      let total = 0;
+      const lines = ['Halo, saya ingin memesan es teh:'];
+
+      // format item akan otomatis jadi:
+      // - Nama xQty = Rp...
+      // Total: Rp...
+      // Terima kasih!
+
+      entries.forEach(([nama, qty], idx) => {
+        const harga = (window.__priceMap && window.__priceMap[nama]) ? window.__priceMap[nama] : 0;
+        const subtotal = harga * qty;
+        total += subtotal;
+        lines.push(`- ${nama} x${qty} = ${formatRupiah(subtotal)}`);
+      });
+
+      const elMetodeAntar = document.querySelector('input[name="metodeAntar"]:checked');
+      const valMetodeAntar = elMetodeAntar ? elMetodeAntar.value : 'ambil';
+      let labelAntar = 'Ambil di Tempat (UNPAM, Serang)';
+      if (valMetodeAntar === 'antar_dekat') labelAntar = 'Antar (Dekat)';
+      if (valMetodeAntar === 'antar_jauh') labelAntar = 'Antar (Jauh)';
+
+      const elMetodeBayar = document.querySelector('input[name="metodeBayar"]:checked');
+      const valMetodeBayar = elMetodeBayar ? elMetodeBayar.value : 'bayar_di_tempat';
+
+
+      // console.log('WA text:', lines.join('\n'));
+      // console.log('entries:', entries);
+      let labelBayar = 'Bayar di Tempat';
+      if (valMetodeBayar === 'tf_atm') labelBayar = 'TF / ATM';
+      if (valMetodeBayar === 'DANA') labelBayar = 'DANA';
+
+      // Tambahkan ongkir ke total
+      // Ambil: Rp 0, Antar dekat: 5.000, Antar jauh: 10.000
+      let ongkir = 0;
+      if (valMetodeAntar === 'antar_dekat') ongkir = 5000;
+      if (valMetodeAntar === 'antar_jauh') ongkir = 10000;
+
+      const totalFinal = total + ongkir;
+
+      lines.push('');
+      lines.push(`Ambil/Antar: ${labelAntar}`);
+      lines.push(`Ongkir: ${formatRupiah(ongkir)}`);
+      lines.push(`Pembayaran: ${labelBayar}`);
+      lines.push('');
+      lines.push(`Total: ${formatRupiah(totalFinal)}`);
+      lines.push('Terima kasih!');
+
+
+      return lines.join('\n');
+    }
+
+    function checkoutKeWhatsApp() {
+      const overlay = document.getElementById('cartOverlay');
+      if (overlay && overlay.classList.contains('hidden')) {
+        tampilkanKeranjang();
+      }
+
+      const text = buatTextWhatsApp();
+      const encoded = encodeURIComponent(text);
+      const url = `https://wa.me/${WA_NUMBER}?text=${encoded}`;
+      window.open(url, '_blank');
+    }
+
+    // wiring event listener
+    document.addEventListener('DOMContentLoaded', () => {
+      const closeBtn = document.getElementById('cartCloseBtn');
+      const backdrop = document.getElementById('cartBackdrop');
+      const checkoutBtn = document.getElementById('cartCheckoutBtn');
+      const clearBtn = document.getElementById('cartClearBtn');
+
+      // tombol cart navbar (selalu pakai aria-label biar tidak typo selector)
+      const cartIconWrap = document.querySelector('button[aria-label="Keranjang"]') || null;
+
+      if (closeBtn) closeBtn.addEventListener('click', hideKeranjang);
+      if (backdrop) backdrop.addEventListener('click', hideKeranjang);
+      if (checkoutBtn) checkoutBtn.addEventListener('click', checkoutKeWhatsApp);
+      if (clearBtn) clearBtn.addEventListener('click', () => {
+        Object.keys(cart).forEach(k => delete cart[k]);
+        // reset map harga supaya tidak ada potensi mismatch
+        window.__priceMap = {};
+        tampilkanKeranjang();
+      });
+
+      // klik icon keranjang di navbar
+      const cartCountSpan = document.getElementById('cart-count');
+      if (cartCountSpan && cartCountSpan.parentElement) {
+        cartCountSpan.parentElement.addEventListener('click', (e) => {
+          e.preventDefault();
+          tampilkanKeranjang();
+        });
+      }
+
+
+      tampilkanKeranjang();
+      hideKeranjang();
+    });
+
+    // =====================
+
+    const music = document.getElementById("bgMusic");
+
+    const btn = document.getElementById("musicBtn");
+
+    let nyala = false;
+
+    // tutupPopup didefinisikan di script VIDEO IKLAN (agar interval volume video bisa di-stop juga).
+    // Tidak didefinisikan di sini supaya tidak ada duplikasi function.
+
+
+    /* tombol volume */
+
+    btn.onclick = function () {
+
+      if (!music) return;
+
+      if (nyala) {
+
+        music.pause();
+
+
+
+        nyala = false;
+
+      } else {
+
+        music.play().catch(() => { });
+
+        // ikon tidak diubah (biar tidak ada emoji di tombol)
+
+        nyala = true;
+
+
+      }
+
+    }
+
+    // coba nyalakan setelah popup ditutup (user gesture: klik tombol silang)
+    // supaya audio tidak "hilang" karena autoplay policy.
+    document.addEventListener('click', (e) => {
+      const close = e.target && (e.target.closest ? e.target.closest('.close-btn') : null);
+      if (close && nyala === false) {
+        try {
+          music.play().catch(() => { });
+          nyala = true;
+
+        } catch (err) { }
+      }
+    }, { passive: true });
+
+  </script>
+  <script>
+
+    /* TESTIMONI AUTO SLIDE */
+    (function () {
+      const label = document.getElementById('testiTimerLabel');
+      const carousel = document.getElementById('testimoniCarousel');
+      if (!label || !carousel) return;
+
+      const cards = Array.from(carousel.children);
+      if (!cards.length) return;
+
+      // tampilkan 3 kartu sekaligus (sesuai layout md:grid-cols-3)
+      // sehingga yang digeser adalah "set" kartu
+      const visibleCount = Math.min(3, cards.length);
+
+      let idx = 0;
+      let remaining = 5;
+
+      // simpan snapshot asli urutan kartu
+      const original = cards.slice();
+
+      function render() {
+        // rewrite urutan kartu berdasarkan idx
+        for (let i = 0; i < original.length; i++) {
+          const card = original[i];
+          carousel.appendChild(card); // reset flow; akan diatur ulang di loop berikut
+        }
+
+        // rotate
+        const rotated = original.slice(idx).concat(original.slice(0, idx));
+        carousel.innerHTML = '';
+        rotated.forEach(c => carousel.appendChild(c));
+
+        // update label
+        label.textContent = `(${remaining}s)`;
+      }
+
+      function tick() {
+        remaining -= 1;
+        if (remaining <= 0) {
+          remaining = 5;
+          idx = (idx + visibleCount) % original.length;
+        }
+        label.textContent = `(${remaining}s)`;
+      }
+
+      render();
+      // Auto-slide dimatikan jika tidak ingin mengganggu.
+      // Kalau slider dibutuhkan, ganti 'false' menjadi 'true'.
+      const enableAutoSlide = false;
+      if (enableAutoSlide) setInterval(tick, 1000);
+
+    })();
+
+    /* VIDEO IKLAN */
+    const video = document.getElementById("iklanVideo");
+
+    // Supaya iklan video langsung jalan saat halaman dibuka,
+    // gunakan autoplay dengan muted (lebih aman terhadap autoplay policy).
+    let volumeTimer = null;
+
+    function startIklanAutoplay() {
+      if (!video) return;
+
+      // pastikan popup tetap tampil
+      const popupEl = document.getElementById("popup");
+      if (popupEl) popupEl.style.display = "flex";
+
+      try {
+          // Lebih stabil untuk autoplay: tetap muted dulu
+          video.muted = true;
+          video.volume = 0;
+          video.playsInline = true;
+          video.load();
+        } catch (e) {}
+
+      // tahap video: tampilkan video saja
+      const iklanVideoWrap = document.getElementById('iklanVideoWrap');
+      if (iklanVideoWrap) iklanVideoWrap.style.display = 'block';
+
+      video.play().then(() => {
+        // pastikan volume full setelah play berhasil
+        try {
+          video.muted = false;
+          video.volume = 1;
+        } catch (e) {}
+      }).catch(() => {
+        // kalau ditolak autoplay suara, tetap biarkan muted tapi tetap video jalan
+        try {
+          video.muted = true;
+          video.volume = 0;
+        } catch (e) {}
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      startIklanAutoplay();
+
+      // retry cepat karena beberapa browser mulai memutar agak belakangan
+      setTimeout(() => startIklanAutoplay(), 200);
+      setTimeout(() => startIklanAutoplay(), 600);
+      setTimeout(() => startIklanAutoplay(), 1200);
+
+      // Agar suara bisa full: tunggu gesture pertama yang "tidak mengganggu"
+      // (scroll / touchstart / mousemove). Ini mengikuti autoplay policy browser.
+      let activatedSound = false;
+      const activateSound = () => {
+        if (activatedSound) return;
+        activatedSound = true;
+
+        try {
+          video.muted = false;
+          video.volume = 1;
+          video.play().catch(() => { });
+        } catch (e) { }
+
+        // stop listener agar tidak re-run
+        window.removeEventListener('scroll', activateSound);
+        window.removeEventListener('touchstart', activateSound);
+        window.removeEventListener('mousemove', activateSound);
+      };
+
+      window.addEventListener('scroll', activateSound, { passive: true, once: true });
+      window.addEventListener('touchstart', activateSound, { passive: true, once: true });
+      window.addEventListener('mousemove', activateSound, { passive: true, once: true });
+    });
+
+
+    // stop interval saat popup ditutup
+    // (tutupPopupFoto tidak dipakai lagi karena popup langsung video)
+    function tutupPopupFoto() {
+      // fallback aman
+      tutupPopup();
+    }
+
+    function tutupPopup() {
+      // guard biar tidak error kalau elemen/script belum siap
+      const popupEl = document.getElementById("popup");
+      if (!popupEl) return;
+      popupEl.style.display = "none";
+
+      // Stop musik background
+      if (music) {
+        music.pause();
+        music.currentTime = 0;
+      }
+      nyala = false;
+
+
+      // Matikan interval yang sempat meng-unmute video
+      if (volumeTimer) {
+        clearInterval(volumeTimer);
+        volumeTimer = null;
+      }
+
+      // Matikan video iklan dengan kondisi paling "pasti"
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+        video.muted = true;
+        video.volume = 0;
+      }
+
+      // Reset state volume
+      volumeTimer = null;
+    }
+
+  </script>
+</body>
+
+</html>
