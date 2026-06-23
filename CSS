@@ -1,0 +1,77 @@
+<style>
+  /* POPUP MODERN */
+
+  .popup-modern {
+    width: 140px;
+    background: #111;
+    border: 2px solid #ff9d00;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    padding-bottom: 18px;
+    animation: muncul 0.5s ease;
+    box-shadow: 0 0 30px rgba(255, 157, 0, 0.25);
+  }
+
+  .video-iklan {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .judul-popup {
+    color: #ff9d00;
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 14px;
+  }
+
+  .btn-order {
+    display: inline-block;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #ff9d00, #ff6200);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  .popup {
+    animation: muncul 0.8s ease;
+  }
+
+  @keyframes muncul {
+    0% {
+      transform: scale(0.5) rotate(-10deg);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  video {
+    box-shadow: 0 0 20px orange;
+  }
+</style>
