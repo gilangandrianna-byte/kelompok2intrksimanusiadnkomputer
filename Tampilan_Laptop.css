@@ -1,0 +1,15 @@
+/* Tampilan Laptop/Tablet - agar ukuran nyaman saat lebar menengah */
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .tablet-gap {
+    gap: 2.25rem;
+  }
+
+  /* judul section sedikit lebih lega di tablet */
+  #menu h2,
+  #tentang h2,
+  #testimoni h2 {
+    line-height: 1.05;
+  }
+}
+
